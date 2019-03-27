@@ -1,0 +1,49 @@
+<div class="col-lg-12">
+    <div class="page-header" style='margin-top: 80px'>
+        <div class="pull-right">
+            <a class="btn btn-success" href="/products">Cancel</a>
+        </div>
+        <h2>Add product new product</h2>
+    </div>
+    <form method="POST" class="form-horizontal" id="insert_form" action="../products/add" data-toggle="validator">
+        <div class="col">
+            <div class="form-group">
+            <label for="frmProdCode" class="col-sm-2 control-label">Product Code</label>
+            <div class="col-sm-6">
+                <input type="text" id="frmProdCode" name="prod_Code" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frmprodName" class="col-sm-2 control-label">Product Name</label>
+            <div class="col-sm-6">
+                <input type="text" id="frmprodName" name="prod_Name" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frmProdDesc" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-6">
+                <input type="text" id="frmProdDesc" name="prod_Desc" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frmProdQty" class="col-sm-2 control-label">Pack Size</label>
+            <div class="col-sm-4">
+                <input type="text" id="frmProdQty" name="prod_Qty" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frmProdPrice" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-4">
+                <input type="number" placeholder="0.00" min="0" value="0" step="0.01" id="frmProdPrice" name="prod_Price" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="frmProdDisc" class="col-sm-2 control-label">Discount</label>
+            <div class="col-sm-4">
+                <input type="number" id="frmProdDisc" name="prod_Disc" class="form-control"/>
+            </div>
+        </div>
+        <input type="hidden" name="_csrf" value="{{ csrfToken}}">
+        <input type="submit" value="Add Product" class="btn btn-success">
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<div class="col-lg-12">
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="#">Check out</a>
+        </div>
+        <h1>iCanStore - Shop</h1>
+    </div>
+    {{#each products}}
+    <div class="card col-lg-3" >
+        <img src="..\img\\{{prod_Code}}.png" class="card-img-top" alt="..\img\\{{prod_Code}}.png">
+        <div class="card-body">
+            <h5 class="card-title">{{prod_Name}}</h5>
+            <p class="card-text">R {{prod_Price}}</p>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+        </div>
+    </div>
+    {{/each}}
+
+</div>

@@ -1,0 +1,20 @@
+.thumbnail img {
+    max-height: 150px;
+}
+
+.thumbnail .description {
+    color: #7f7f7f;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.page-header {
+    margin-top: 80px;
+}
+
+.card {
+    margin-bottom: 60px;
+}
