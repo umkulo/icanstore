@@ -1,0 +1,49 @@
+<div class="col-lg-12">
+    <div class="page-header" style='margin-top: 80px'>
+        <div class="pull-right">
+            <a class="btn btn-warning" href="/shops">Cancel</a>
+        </div>
+        <h2>Edit cart</h2>
+    </div>
+    <table class="table table-hover" id="mytable">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Pack</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Price</th>
+        <th scope="col">Disc</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        {{!-- {{#each carts}}    
+        <tr>
+            <th scope="row">{{prod_Code}}</th>
+            <td>{{prod_Name}}</td>
+            <td>{{prod_Qty}}</td>
+            <td>{{order_Qty}}</td>
+            <td>{{prod_Price}}</td>
+            <td>{{prod_Disc}}</td>
+            <td>{{line_Total}}</td>
+            <td>
+                <a href="/carts/update/{{ cart_ID }}"  class="btn btn-warning" >
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="/carts/delete/{{ cart_ID }}" method='POST' class="btn btn-danger">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {{!-- {{else}} --}}
+        <div class="alert alert-danger" role="alert">
+            No items in cart
+        </div>
+        {{!-- {{/each}} --}}
+    </tbody>
+    </table>
+
+</div>

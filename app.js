@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+/*npm run dev*/
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,21 +10,29 @@ var expressHbs = require('express-handlebars');
 var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
+var validator = require('express-validator');
+var env = require('dotenv');
 
 //Database
 var db = require('./config/database');
 
-
-//Import Routes
+//Routes
 var routes = require('./routes/index');
+
+//Models
 var users = require('./routes/users');
 var products = require('./routes/products');
 var shops = require('./routes/shops');
+var carts = require('./routes/carts')
 
 var app = express();
 
-// view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+//Handlebars
+app.set('views', './views')
+app.engine('.hbs', expressHbs({
+    defaultLayout: 'layout', 
+    extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Middleware initialize
@@ -32,7 +41,9 @@ app.set('view engine', '.hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
+//load passport strategies
 //The next sequence does matter
 app.use(session({secret: 'Jesus15Lord', resave: false, saveUninitialized: false}))
 app.use(flash());
@@ -51,11 +62,14 @@ db.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
+require('./config/passport');
+
 //Setup routes
 app.use('/', routes);
 app.use('/users', users);
 app.use('/products', products);
 app.use('/shops', shops);
+app.use('/carts', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

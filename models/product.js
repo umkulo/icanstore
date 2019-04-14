@@ -2,47 +2,40 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 const Product = db.define('product', {
-    prod_ID : {
-        type: Sequelize.INTEGER, primaryKey: true
+    prod_ID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     },
-    prod_Name : {
+    prod_Name: {
         type: Sequelize.STRING
     },
-    prod_Code : {
+    prod_Code: {
         type: Sequelize.STRING
     },
-    prod_Description : {
+    prod_Description: {
         type: Sequelize.STRING
     },
-    prod_Qty : {
+    prod_Qty: {
         type: Sequelize.INTEGER
     },
-    prod_Price : {
+    prod_Price: {
         type: Sequelize.FLOAT
     },
-    prod_Disc : {
+    prod_Disc: {
         type: Sequelize.FLOAT
     },
-    prod_Category : {
+    prod_Category: {
         type: Sequelize.INTEGER
     },
-    prod_Active : {
+    prod_Active: {
         type: Sequelize.BOOLEAN
     },
-    createdAt : {
+    createdAt: {
         type: Sequelize.DATE
     },
-    updatedAt : {
+    updatedAt: {
         type: Sequelize.DATE
     }
 });
 
-module.exports = Product
-
-
-
-
-
-
-
-
+module.exports = Product;

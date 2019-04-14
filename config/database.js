@@ -1,15 +1,16 @@
 const Sequelize = require('sequelize');
 const mysql = require('mysql');
 
-module.exports = new Sequelize ({
-    database: 'icanstore',
-    // username: 'postgres',
-    username: 'root',
-    password: 'Mast3rk3y',
-    host    : 'localhost',
-    dialect : 'mysql'
-    // dialect : 'postgres'
-  });
+module.exports = new Sequelize({
+  database: 'icanstore',
+  // username: 'postgres',
+  username: 'root',
+  password: 'Mast3rk3y',
+  host: 'localhost',
+  dialect: 'mysql',
+  operatorsAliases: false
+  // dialect : 'postgres'
+});
 
 
 // create connection to database

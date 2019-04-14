@@ -1,7 +1,7 @@
 <div class="col-lg-12">
     <div class="page-header" style='margin-top: 80px'>
         <div class="pull-right">
-            <a class="btn btn-success" href="/products">Cancel</a>
+            <a class="btn btn-warning" href="/products">Cancel</a>
         </div>
         <h2>Edit product</h2>
     </div>
@@ -11,8 +11,13 @@
         </div>
     {{/each}}
     {{#each products}}
-    <p>{{prod_Price}}</p>
+    
     <form method="POST" class="form-horizontal" id="update_form" action='/products/update/{{prod_ID}}' data-toggle="validator">
+        {{!-- <div class="col"> --}}
+            {{!-- <div class="form-group"> --}}
+                {{!-- <img src="..\img\\{{prod_Code}}.png" class="card-img-top" onerror="this.style.display='none';" alt="Product Code: {{prod_Code}}"> --}}
+            {{!-- </div> --}}
+        {{!-- </div> --}}
         <div class="col">
             <div class="form-group">
             <label for="frmProdCode" class="col-sm-2 control-label">Product Code</label>

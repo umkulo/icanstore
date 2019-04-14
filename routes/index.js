@@ -17,7 +17,17 @@ router.get('/product/add', function(req, res, next) {
 
 /* GET add users page. */
 router.get('/user/add', function(req, res, next) {
-  res.render('users/add', { title: 'Add User' , csrfToken: req.csrfToken()});
+  res.render('users/add', { title: 'New User' , csrfToken: req.csrfToken()});
+});
+
+/* GET login user page. */
+router.get('/user/login', function(req, res, next) {
+  res.render('users/login', { title: 'Login' , csrfToken: req.csrfToken()});
+});
+
+/* GET open carts. */
+router.get('/carts/', function(req, res, next) {
+  res.render('carts/', { title: 'Carts' , csrfToken: req.csrfToken()});
 });
 
 module.exports = router;

@@ -58,6 +58,13 @@ router.post('/add', (req, res) => {
       .catch(err => console.log(err));
 });
 
+router.get('/login', (req, res) =>{
+  User.findAll({ where: {user_Email: term }})
+    .then(products => res.render('shop/index', {
+      products}))
+    .catch(err => console.log(err)) 
+})
+
 // UPDATE user
 router.post('/update/(:id)', (req, res) => {
   var id = req.params.id;

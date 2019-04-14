@@ -13,12 +13,12 @@ passport.deserializeUser(function(user_id, done){
     });
 });
 
-paasport.use('local.add', new LocalStrategy({
-    usernameField: 'user_Email',
-    passwordField: 'user_Password',
+passport.use('local.add', new LocalStrategy({
+    user_EmailFld: 'user_Email',
+    user_PasswordFld: 'user_Password',
     passReqToCallback: true
-}, function(req, user_Email, user_Password, done) {
-    User.findOne({'email': user_Email}, function(err, user){
+}, function(req, user_EmailFld, user_PasswordFld, done) {
+    User.findOne({'user_Email': user_EmailFld}, function(err, user){
         if (err) {
             return done(err);
         }
@@ -26,8 +26,22 @@ paasport.use('local.add', new LocalStrategy({
             return done(null, false, {message: 'Email is already in use.'});
         }
         var newUser = new User();
-        newUser.user_Email = user_Email;
-        newUser.user_Password = newUser.encryptPassword(user_Password);
+        newUser.user_Email = user_EmailFld;
+        newUser.user_Password = newUser.encryptPassword(user_PasswordFld);
+        res.redirect('/users')
         //save newUser
+        // newUser.save(function(err, result) {
+            // if (err) {
+                // return done(err);
+            // }
+            // return done(null, newUser);
+        // });
+        // User.create({
+            // user_Name, user_Surname, usernameField, user_Cellphone, 
+            // user_Password, role_ID, user_Active, 
+            // user_LastDate, user_MPNumber, user_PracticeNo
+        //   })
+            // .then(user => res.redirect('/users'))
+            // .catch(err => console.log(err));
     });
 }));

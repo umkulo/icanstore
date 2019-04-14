@@ -1,0 +1,48 @@
+<div class="col-lg-12">
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="#">Check out</a>
+        </div>
+        <h1>iCanStore - Shop</h1>
+    </div>
+
+    <table class="table table-hover" id="mytable">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Pack</th>
+        <th scope="col">Price</th>
+        <th scope="col">Qty</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        {{#each products}}    
+        <tr>
+            <td><img src="..\img\\{{prod_Code}}.png" class="card-img-top" onerror="this.style.display='none';" alt="Product Code: {{prod_Code}}"></td>
+            <th scope="row">{{prod_Code}}</th>
+            <td>{{prod_Name}}</td>
+            <td>{{prod_Description}}</td>
+            <td>{{prod_Qty}}</td>
+            <td>{{prod_Price}}</td>
+            <td>
+               <input type="text" value="1" class="col-sm-12">
+            </td>
+            <td>
+                <a href="#{{ prod_ID }}" class="btn btn-primary" >
+                    Add to Cart
+                    {{!-- <i class="far fa-edit"></i> --}}
+                </a>
+            </td>
+        </tr>
+        {{!-- {{else}} --}}
+        {{!-- <div class="alert alert-danger" role="alert"> --}}
+            {{!-- No users available --}}
+        {{!-- </div> --}}
+        {{/each}}
+    </tbody>
+    </table>
+</div>

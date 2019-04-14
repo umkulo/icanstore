@@ -1,0 +1,43 @@
+<div class="col-lg-12">
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="/">Cancel</a>
+        </div>
+        <h1>List of Open Carts</h1>
+    </div>
+    
+    <table class="table table-hover" id="mytable">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Pack</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Price</th>
+        <th scope="col">Line Total</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        {{#each carts}}    
+        <tr>
+            <th scope="row">{{prod_Code}}</th>
+            <td>prod Name</td>
+            <td>pack Size</td>
+            <td>Order Qty</td>
+            <td>prod Price</td>
+            <td>Total</td>
+             <td>
+                <a href="/carts/edit/{{ cart_ID }}"  class="btn btn-warning" >
+                    <i class="far fa-edit"></i>
+                </a>
+                <a href="/carts/delete/{{ cart_ID }}" method='POST' class="btn btn-danger">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+    </table>
+  
+</div>
