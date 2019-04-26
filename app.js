@@ -1,38 +1,41 @@
 /*jshint esversion: 6 */
 /*npm run dev*/
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var expressHbs = require('express-handlebars');
-var session = require('express-session');
-var passport = require('passport');
-var flash = require('connect-flash');
-var validator = require('express-validator');
-var env = require('dotenv');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const expressHbs = require('express-handlebars');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const validator = require('express-validator');
+const env = require('dotenv');
+const mongoose = require('mongoose');
 
-//Database
-var db = require('./config/database');
+const port = 8080;
+const db = 'mongodb://localhost/icanstore';
 
-//Routes
-var routes = require('./routes/index');
-
-//Models
-var users = require('./routes/users');
-var products = require('./routes/products');
-var shops = require('./routes/shops');
-var carts = require('./routes/carts')
+mongoose.connect(db, { useNewUrlParser: true });
 
 var app = express();
 
+//Database
+// var db = require('./config/database');
+
+//Routes
+const routes = require('./routes/index');
+
 //Handlebars
-app.set('views', './views')
-app.engine('.hbs', expressHbs({
-    defaultLayout: 'layout', 
+app.set('views', './views');
+app.engine(
+  '.hbs',
+  expressHbs({
+    defaultLayout: 'layout',
     extname: '.hbs'
-}));
+  })
+);
 app.set('view engine', '.hbs');
 
 // Middleware initialize
@@ -45,7 +48,9 @@ app.use(validator());
 app.use(cookieParser());
 //load passport strategies
 //The next sequence does matter
-app.use(session({secret: 'Jesus15Lord', resave: false, saveUninitialized: false}))
+app.use(
+  session({ secret: 'Jesus15Lord', resave: false, saveUninitialized: false })
+);
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -53,23 +58,22 @@ app.use(passport.session());
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Test DB connect
-db.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
 require('./config/passport');
+
+//Models
+const users = require('./routes/users');
+const products = require('./routes/products');
+const practices = require('./routes/practices');
+const shops = require('./routes/shops');
+const carts = require('./routes/carts');
 
 //Setup routes
 app.use('/', routes);
 app.use('/users', users);
 app.use('/products', products);
+app.use('/practices', practices);
 app.use('/shops', shops);
-app.use('/carts', routes);
+// app.use('/carts', carts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -101,6 +105,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
