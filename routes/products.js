@@ -1,79 +1,100 @@
-/*jshint esversion: 6 */
-var express = require('express');
-var router  = express.Router();
-var db      = require('../config/database');
-var Product = require('../models/Product');
+// /*jshint esversion: 6 */
+const express = require('express');
+const router = express.Router();
+const Product = require('../models/product');
 
-//GET all
+/* LIST all products */
 router.get('/', (req, res) => {
-    Product.findAll()
-        .then(products => res.render('products/', {
-            products
-        }))
-        .catch(err => console.log(err));});
-
-//GET display add form
-router.get('/add', (req, res) => res.render('add'));
-
-// ADD product
-router.post('/add', (req, res) => {
-    let { prod_Name, prod_Code, prod_Desc, 
-        prod_Qty, prod_Price, prod_Disc
-     } = req.body;
-    let errors = [];
-  
-    Product.create({
-        prod_Name, prod_Code, prod_Desc, 
-        prod_Qty, prod_Price, prod_Disc
-    })
-      .then(product => res.redirect('/products'))
-      .catch(err => console.log(err));
-});
-
-// EDIT product
-router.get('/edit/(:id)', function(req, res, next){
-    Product.findAll({
-        where: {
-          prod_ID: req.params.id
-        }
-      })
-      .then(products => res.render('products/edit', {
-          products
-      }))
-      .catch(err => console.log(err));
-});
-
-// UPDATE product
-router.post('/update/(:id)', (req, res) => {
-    var id = req.params.id;
-    let { prod_Name, prod_Code, prod_Desc, 
-        prod_Qty, prod_Price, prod_Disc } = req.body;
-    let errors = [];
-  
-    // Validate Fields
-    if(!prod_Name) {
-      errors.push({ text: 'Please add at least a Pruct name' });
+  console.log('Getting all products');
+  Product.find({}).exec(function(err, products) {
+    if (err) {
+      res.send('An error occured');
+    } else {
+      console.log(products);
+      res.render('products/', { products: products });
+      // res.json(products);
     }
- 
-    Product.update({
-        prod_Name, prod_Code, prod_Desc, 
-        prod_Qty, prod_Price, prod_Disc 
-    }, { where: {prod_ID : id} })
-      .then(products => res.redirect('/products'))
-      .catch(err => console.log(err));
   });
+});
 
-//DELETE product
-router.get('/delete/(:id)', function(req, res, next) {
-    var user = { id: req.params.id };
-    Product.destroy({
-      where: {
-        prod_ID: req.params.id
-      }
-    })
-    .then(products => res.redirect('/products'))
-    .catch(err => console.log(err));
-    
+/* LIST a product by id */
+router.get('/:id', function(req, res) {
+  console.log('Getting a product by ID');
+  Product.findOne({
+    _id: req.params.id
+  }).exec(function(err, products) {
+    if (err) {
+      res.send('An error occured');
+    } else {
+      console.log(products);
+      res.json(products);
+    }
   });
+});
+
+// router.post('/product', function(req, res) {
+//   var newProduct = new Product();
+
+//   newProduct.title = req.body.title;
+//   newProduct.author = req.body.author;
+//   newProduct.category = req.body.category;
+
+//   newProduct.save(function(err, product) {
+//     if (err) {
+//       res.send('Error saving product');
+//     } else {
+//       console.log(product);
+//       res.send(product);
+//     }
+//   });
+// });
+
+/* ADD a new product */
+router.post('/', function(req, res) {
+  Product.create(req.body, function(err, product) {
+    if (err) {
+      res.send('Error saving product');
+    } else {
+      console.log(product);
+      res.send(product);
+    }
+  });
+});
+
+/* UPDATE a product by id */
+router.put('/:id', function(req, res) {
+  Product.findOneAndUpdate(
+    {
+      _id: req.params.id
+    },
+    { $set: { prod_Code: req.body.prod_Code } },
+    { upsert: true },
+    function(err, newProduct) {
+      if (err) {
+        res.send('Error updating product');
+      } else {
+        console.log(newProduct);
+        res.send(newProduct);
+      }
+    }
+  );
+});
+
+/* DELETE a product by id */
+router.delete('/:id', function(req, res) {
+  Product.findOneAndRemove(
+    {
+      _id: req.params.id
+    },
+    function(err, product) {
+      if (err) {
+        res.send('Error removing product');
+      } else {
+        console.log(product);
+        res.status(204);
+      }
+    }
+  );
+});
 
 module.exports = router;

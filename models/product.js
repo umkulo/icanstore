@@ -1,41 +1,37 @@
-const Sequelize = require('sequelize');
-const db = require('../config/database');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Product = db.define('product', {
-    prod_ID: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-    },
-    prod_Name: {
-        type: Sequelize.STRING
-    },
-    prod_Code: {
-        type: Sequelize.STRING
-    },
-    prod_Description: {
-        type: Sequelize.STRING
-    },
-    prod_Qty: {
-        type: Sequelize.INTEGER
-    },
-    prod_Price: {
-        type: Sequelize.FLOAT
-    },
-    prod_Disc: {
-        type: Sequelize.FLOAT
-    },
-    prod_Category: {
-        type: Sequelize.INTEGER
-    },
-    prod_Active: {
-        type: Sequelize.BOOLEAN
-    },
-    createdAt: {
-        type: Sequelize.DATE
-    },
-    updatedAt: {
-        type: Sequelize.DATE
-    }
+const ProductSchema = new Schema({
+  prod_Name: {
+    type: String
+  },
+  prod_Code: {
+    type: String
+  },
+  prod_NAPI: {
+    type: String
+  },
+  prod_Description: {
+    type: String
+  },
+  prod_Pk_Qty: {
+    type: Number
+  },
+  prod_Price: {
+    type: Number
+  },
+  prod_Disc: {
+    type: Number
+  },
+  prod_Category: {
+    type: String
+  },
+  prod_Active: {
+    type: String
+  },
+  prod_Img_Path: {
+    type: String
+  }
 });
 
-module.exports = Product;
+module.exports = mongoose.model('Product', ProductSchema);

@@ -1,45 +1,33 @@
-const Sequelize = require('sequelize');
-const db = require('../config/database');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Practice = db.define('practice', {
-  prac_ID: {
-    autoIncrement: true,
-    primaryKey: true,
-    type: Sequelize.INTEGER
-  },
+var PracticeSchema = new Schema({
   prac_Name: {
-    type: Sequelize.STRING,
-    notEmpty: true
+    type: String,
+    required: true
   },
   prac_Address1: {
-    type: Sequelize.STRING,
-    notEmpty: true
+    type: String,
+    required: true
   },
   prac_Address2: {
-    type: Sequelize.STRING,
-    notEmpty: true
+    type: String
   },
   prac_Address3: {
-    type: Sequelize.STRING,
-    notEmpty: true
+    type: String
   },
   prac_City: {
-    type: Sequelize.STRING,
-    notEmpty: true
+    type: String
+  },
+  prac_PCode: {
+    type: String
   },
   prac_Active: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
+    type: Number
   },
   prac_PracticeNo: {
-    type: Sequelize.STRING
-  },
-  createdAt: {
-    type: Sequelize.DATE
-  },
-  updatedAt: {
-    type: Sequelize.DATE
+    type: String
   }
 });
 
-module.exports = Practice;
+module.exports = mongoose.model('Practice', PracticeSchema);

@@ -1,21 +1,57 @@
-var express = require('express');
-var router  = express.Router();
-var db      = require('../config/database');
-var Product = require('../models/Product');
+// /*jshint esversion: 6 */
+const express = require('express');
+const router = express.Router();
+const Product = require('../models/product');
 
-//GET all products for shop
+/* LIST all products for shop */
 router.get('/', (req, res) => {
-        Product.findAll()
-        .then(products => res.render('shop/index', {
-            products
-        }))
-        .catch(err => console.log(err))});
+  console.log('Getting all products');
+  Product.find({}).exec(function(err, products) {
+    var productChunks = [];
+    var Chunksize = 4;
+    for (var i = 0; i < products.length; i += Chunksize) {
+      productChunks.push(products.slice(i, i + Chunksize));
+    }
+    if (err) {
+      res.send('An error occured');
+    } else {
+      console.log(products);
+      res.render('shop/', { products: productChunks });
+      // res.json(products);
+    }
+  });
+});
 
-router.get('/grid', (req, res) => {
-    Product.findAll()
-    .then(products => res.render('shop/grid', {
-        products
-    }))
-    .catch(err => console.log(err))});        
+// //GET all products for shop
+// router.get('/', (req, res) => {
+//     Product.findAll()
+//         .then(products => res.render('shop/index', {
+//             products
+//         }))
+//         .catch(err => console.log(err));
+// });
+
+// //GET promotion products for landing
+// router.get('/promo', (req, res) => {
+//     Product.findAll({
+//             where: {
+//                 prod_Disc: {
+//                     [Op.gt]: 0
+//                 }
+//             }
+//         })
+//         .then(products => res.render('shop/promo', {
+//             products
+//         }))
+//         .catch(err => console.log(err));
+// });
+
+// router.get('/grid', (req, res) => {
+//     Product.findAll()
+//         .then(products => res.render('shop/grid', {
+//             products
+//         }))
+//         .catch(err => console.log(err));
+// });
 
 module.exports = router;

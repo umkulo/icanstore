@@ -6,20 +6,22 @@
         <h1>iCanStore - Shop</h1>
     </div>
     {{#each products}}
-    <div class="card col-lg-3" >
-        <img src="..\img\\{{prod_Code}}.png" class="card-img-top" onerror="this.style.display='none';" alt="Product Code: {{prod_Code}}">
-        <div class="card-body">
-            <h5 class="card-title">{{prod_Name}}</h5>
-            <p class="card-text">R {{prod_Price}}</p>
-            <form method="POST" class="form-horizontal" id="insert_form" action='/carts/add/{{prod_ID}}' data-toggle="validator">
-                <div class="col-sm-6">
-                <input type="number" name="prod_Order_Qty" class="form-control" step=10 value='0'/>
+    <div class="row">
+        {{#each this}}
+        <div class="card col-lg-3">
+            <img src="..\img\\{{this.prod_Code}}.png" class="card-img-top" onerror="this.style.display='none';"
+                alt="Product Code: {{thisprod_Code}}">
+            <div class="card-body">
+                <h5 class="card-title">{{this.prod_Name}}</h5>
+                <div class="clearfix">
+                    <div class="price pull-left">
+                        R {{this.prod_Price}}
+                    </div>
+                    <a type="submit" class="btn btn-primary pull-right" role="button">Add to Cart</a>
                 </div>
-            </form>
-            <input type="hidden" name="_csrf" value="{{ csrfToken}}">
-            <input type="submit" value="Add to Cart" class="btn btn-primary">
-            {{!-- <a href="#" class="btn btn-primary">Add to Cart</a> --}}
+            </div>
         </div>
+        {{/each}}
     </div>
     {{/each}}
 
